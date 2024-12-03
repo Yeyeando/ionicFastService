@@ -1,0 +1,7 @@
+{
+  "name": "fastService",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
