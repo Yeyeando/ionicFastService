@@ -1,20 +1,23 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar class="custom-header">
+    <ion-title class="custom-title">Select a table</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        *ngFor="let t of tables"
+        size="4"
+        class="grid-cell"
+        [ngStyle]="{ 'background-color': t.availability ? '#eeeeee' : '#ff4d4d' }"
+      >
+        <div class="image-container" (click)="gotoDishes()">
+          <img src="assets/img/chair.svg" alt="" />
+          <div class="centered-number">{{ t.number }}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
