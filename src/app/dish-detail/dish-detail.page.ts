@@ -32,40 +32,53 @@ export class DishDetailPage implements OnInit {
           quantity: ingredient.quantity || 0,
         }));
       });
+    console.log('datos mostrados');
   }
 
   increaseQuantity(ingredient: any) {
-    ingredient.quantity++;
-    this.dishService
-      .updateIngredientForDish(
-        this.idDish,
-        ingredient.id_ingredient,
-        ingredient.quantity
-      )
-      .subscribe(() => console.log('Cantidad actualizada'));
+    if (ingredient.quantity < 3) {
+      ingredient.quantity++;
+      this.dishService
+        .updateIngredientForDish(
+          this.idDish,
+          ingredient.idIngredient,
+          ingredient.quantity
+        )
+        .subscribe(() => console.log('Cantidad actualizada'));
+    } else {
+      console.log('No puedes añadir más de 3 ingredientes');
+    }
   }
 
   decreaseQuantity(ingredient: any) {
-    if (ingredient.quantity > 0) {
+    if (ingredient.quantity > 1) {
       ingredient.quantity--;
       this.dishService
         .updateIngredientForDish(
           this.idDish,
-          ingredient.id_ingredient,
+          ingredient.idIngredient,
           ingredient.quantity
         )
         .subscribe(() => console.log('Cantidad actualizada'));
+      if (ingredient.quantity <= 0) {
+        this.removeIngredient(ingredient);
+        this.loadIngredients();
+      }
+    } else {
+      console.log('No puedes quitar más ingredientes');
     }
   }
 
-  removeIngredient(idIngredient: number) {
+  removeIngredient(ingredient: any) {
     this.dishService
-      .deleteIngredientFromDish(this.idDish, idIngredient)
+      .deleteIngredientFromDish(this.idDish, ingredient.idIngredient)
       .subscribe(() => {
         this.ingredients = this.ingredients.filter(
-          (i) => i.id_ingredient !== idIngredient
+          (i) => i.idIngredient !== ingredient
         );
       });
+    console.log('eliminado correctamente');
+    this.loadIngredients();
   }
 
   async addIngredient() {
@@ -93,7 +106,7 @@ export class DishDetailPage implements OnInit {
           handler: (data) => {
             this.dishService
               .addIngredientToDish(this.idDish, {
-                id_ingredient: 0, // Cambiar según lógica de identificación
+                id_ingredient: 0,
                 quantity: data.quantity,
               })
               .subscribe((newIngredient) => {

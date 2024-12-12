@@ -10,8 +10,10 @@ export class HomePage implements OnInit {
   tables: any = [];
   constructor(private tableService: TablesService, private router: Router) {}
 
-  gotoDishes() {
-    this.router.navigateByUrl('/dishes');
+  gotoDishes(avaibility: boolean) {
+    if (avaibility == true) {
+      this.router.navigateByUrl('/dishes');
+    }
   }
 
   ngOnInit() {

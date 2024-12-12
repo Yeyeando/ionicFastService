@@ -13,7 +13,7 @@
         class="grid-cell"
         [ngStyle]="{ 'background-color': t.availability ? '#eeeeee' : '#ff4d4d' }"
       >
-        <div class="image-container" (click)="gotoDishes()">
+        <div class="image-container" (click)="gotoDishes(t.availability)">
           <img src="assets/img/chair.svg" alt="" />
           <div class="centered-number">{{ t.number }}</div>
         </div>

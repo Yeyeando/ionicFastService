@@ -9,7 +9,6 @@ export class DishService {
 
   constructor(private HttpClient: HttpClient) {}
 
-  // Obtener todos los platillos
   getDishes() {
     return this.HttpClient.get(this.endpoint);
   }
@@ -20,12 +19,10 @@ export class DishService {
     );
   }
 
-  // Obtener ingredientes relacionados con un platillo
   getIngredientsForDish(idDish: number) {
     return this.HttpClient.get(`http://localhost:8080/contains/${idDish}`);
   }
 
-  // Agregar un ingrediente a un platillo
   addIngredientToDish(
     idDish: number,
     ingredient: { id_ingredient: number; quantity: number }
@@ -36,7 +33,6 @@ export class DishService {
     });
   }
 
-  // Actualizar la cantidad de un ingrediente para un platillo
   updateIngredientForDish(
     idDish: number,
     idIngredient: number,
@@ -48,7 +44,6 @@ export class DishService {
     );
   }
 
-  // Eliminar un ingrediente de un platillo
   deleteIngredientFromDish(idDish: number, idIngredient: number) {
     return this.HttpClient.delete(
       `http://localhost:8080/contains/${idDish}/${idIngredient}`
